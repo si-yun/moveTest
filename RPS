@@ -1,0 +1,80 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>rock-paper-scissors</title>
+      <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script>
+      ///// 가위 1 바위 2 보 3 
+         function computerChoice(){
+            var computerChoice = Math.floor(Math.random()*3)
+            return computerChoice;
+         }
+         function yourChoice(){
+            var yourChoice = $('#inputYourChoice').val();
+            if(yourChoice=='1')
+               return 0;
+            else if(yourChoice=='2')
+               return 1;
+            else if(yourChoice=='3')
+               return 2;
+            else
+               alert('가위=1,바위=2,보=3\n 다시 내라 \n다시 입력하시오')
+         }
+         function checkwhowin(user, com){
+            //0 승리 1 패배 2 드로우
+            var userResult = 0;
+            if((user==1&&com==0) || (user==2&&com==1) || (user==0&&com==2))
+               return 0;
+            else if((user==2&&com==0) || (user==0&&com==1) || (user==1&&com==2))
+               return 1;
+            else if((user==0&&com==0) || (user==1&&com==1) || (user==2&&com==2))
+               return 2;
+            else
+               alert('승패 오류');
+         }
+         function showimage(user, rusult, com){
+            if(user==0)
+               $('#yourChoiceImg').attr('src', 'img/ga.png');
+            else if(user==1)
+               $('#yourChoiceImg').attr('src', 'img/ju.png');
+            else if(user==2)
+               $('#yourChoiceImg').attr('src', 'img/bo.png');
+            if(rusult==0)
+               $('#resultImg').attr('src', 'img/win.png');
+            else if(rusult==1)
+               $('#resultImg').attr('src', 'img/lose.png');
+            else if(rusult==2)
+               $('#resultImg').attr('src', 'img/draw1.png');
+            if(com==0)
+               $('#computerChoiceImg').attr('src', 'img/ga.png');
+            else if(com==1)
+               $('#computerChoiceImg').attr('src', 'img/ju.png');
+            else if(com==2)
+               $('#computerChoiceImg').attr('src', 'img/bo.png');
+         }
+         function startgame(){
+            var comChoice = computerChoice();
+            var youChoice = yourChoice();
+            var result = checkwhowin(youChoice, comChoice);
+            showimage(youChoice, result, comChoice);
+         }
+      </script>
+   </head>
+   <body>
+      <form>
+    	  <p> 가위(1)바위(2)보(3) 입력하시오.</p></br>
+         <input type="text"  value="" id = "inputYourChoice" name=""/>
+         <input type="button"  value="도전" onclick="startgame()"/>
+      </form>
+      <img src = "img/go.jpeg" id = "yourChoiceImg"/>
+      <img src = "img/go1.jpeg" id = "resultImg"/>
+      <img src = "img/NO.png" id = "computerChoiceImg"/>
+   </body>
+</html>
+
+
+    
